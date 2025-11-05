@@ -1,37 +1,38 @@
-import java.util.Scanner;
+public class ATC {
+    private String address;
+    private int subscribersCount;
+    private int monthlyFee;
 
-public class Main {
-    public static void main(String[] args) {
-        Scanner in = new Scanner(System.in);
+    public ATC() { }
 
-        ATC atc = new ATC();
-        atc.setAddress("Ул. Пушкина");
-        atc.setMonthlyFee(10);
+    public ATC(String address, int subscribersCount, int monthlyFee) {
+        setAddress(address);
+        setSubscribersCount(subscribersCount);
+        setMonthlyFee(monthlyFee);
+    }
 
-        int number;
-        while (true) {
-            System.out.print("Введите количество пользователей: ");
-            System.out.flush();
-            String line = in.nextLine().trim();
+    public void setAddress(String address) {
+        this.address = address.trim();
+    }
 
-            if (line.isEmpty()) {
-                System.out.println("Пусто. Введите целое число ≥ 0.");
-                continue;
-            }
-            if (!line.matches("\\d+")) {
-                System.out.println("Ошибка: нужно целое число без знаков.");
-                continue;
-            }
-            try {
-                number = Integer.parseInt(line);
-                break;
-            } catch (NumberFormatException e) {
-                System.out.println("Слишком большое число (макс 2147483647).");
-            }
-        }
+    public void setSubscribersCount(int subscribersCount) {
+        this.subscribersCount = subscribersCount;
+    }
 
-        System.out.println("Вы ввели число: " + number);
-        atc.setSubscribersCount(number);
-        atc.print();
+    public void setMonthlyFee(int monthlyFee) {
+        this.monthlyFee = monthlyFee;
+    }
+
+    public long computeTotalMonthlyFee() {
+        return (long) monthlyFee * (long) subscribersCount;
+    }
+
+    public String getAddress() {
+        return address;
+    }
+
+    public void print() {
+        System.out.println("Адрес АТС: " + address);
+        System.out.println("Общая абонентская плата: " + computeTotalMonthlyFee() + " руб.");
     }
 }
